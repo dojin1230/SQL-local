@@ -47,3 +47,6 @@ WHERE UP.차액 > 0
 
 -- 0-3. Acquired Donor 테이블 업데이트 -- 15일 이후 작업
 -- 0-3-1. New Acquired Donor for this month
+
+INSERT INTO REPORT.DBO.supporter_ALC
+SELECT 
