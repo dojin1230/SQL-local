@@ -1,0 +1,1010 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/28/2017 3:06:33 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LAPTOP-PC5R1PCP"
+  DTS:CreatorName="LAPTOP-PC5R1PCP\Dojin Kim"
+  DTS:Description="SSIS 패키지 설명"
+  DTS:DTSID="{A06E2E8E-F918-42B0-8B22-43AA7CE96037}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.1000.169"
+  DTS:LocaleID="1042"
+  DTS:MaxErrorCount="0"
+  DTS:ObjectName="import_mrm_data_server"
+  DTS:VersionGUID="{1FE4DED9-ACC6-4513-A40B-DEC076C2B523}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{3045F0E8-D981-4808-880D-5DD6170A789C}"
+      DTS:ObjectName="DestinationConnectionOLEDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=192.168.83.41;User ID=sa;Initial Catalog=work;Provider=SQLNCLI11;Auto Translate=false;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAu3L9YM78d0G74nu9ROEz7gAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACXpqlIuKwRZT3oAIeVBy87v2usLxE8Jgqz0PjOH131WwAAAAAOgAAAAAIAACAAAAANG1QXKBmOb3U+lFwD5/40rwsKpdkptskRuheweQEZcSAAAABW3Rp4xAJ0xRTlh2MnRnHdqRepDg0bTBEjHFNMbpcDl0AAAACKzWtPlyiPWK4rB239N+655AhzXeBaoPfy6OQL5FioGNbyc0631hQeTkcFruy+vgbzxtbVEJxQS7r9IsGI2qtL</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SourceConnectionExcel]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{3A3E59C8-8FDA-401C-B01B-FC5B03244D59}"
+      DTS:ObjectName="SourceConnectionExcel">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:\DB\DB0_clnt_i.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SQL 태스크 1 준비"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{7DE01C3E-E4B2-45C3-B0C1-B4F89835A612}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL 태스크 1 준비"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3045F0E8-D981-4808-880D-5DD6170A789C}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [dbo].[db0_clnt_i]&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\데이터 흐름 태스크 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{17170BED-B947-4060-8AA0-C5E7C9BE7EF5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="데이터 흐름 태스크 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          defaultBufferSize="3145728"
+          version="1">
+          <components>
+            <component
+              refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB 대상;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All rights reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB 대상"
+              name="대상 - db0_clnt_i"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="명령이 종료되기 전의 제한 시간 값(초)입니다. 값 0은 제한 시간이 없음을 나타냅니다."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="행 집합을 여는 데 사용되는 데이터베이스 개체의 이름을 지정합니다."
+                  name="OpenRowset">[dbo].[db0_clnt_i]</property>
+                <property
+                  dataType="System.String"
+                  description="행 집합을 여는 데 사용되는 데이터베이스 개체의 이름이 들어 있는 변수를 지정합니다."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="실행할 SQL 명령입니다."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="데이터 원본에서 코드 페이지 정보를 사용할 수 없을 때 사용할 열 코드 페이지를 지정합니다."
+                  name="DefaultCodePage">949</property>
+                <property
+                  dataType="System.Boolean"
+                  description="문자 데이터를 설명할 때 DefaultCodePage 속성 값을 사용하도록 합니다."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="데이터베이스에 액세스하는 데 사용되는 모드를 지정합니다."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="ID 열에 제공된 값을 대상에 복사할지 여부를 나타냅니다. false인 경우 ID 열의 값이 대상에서 자동 생성됩니다. 빠른 로드를 사용하는 경우에만 적용됩니다."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Null 포함 열을 대상에 Null로 삽입할지 여부를 나타냅니다. false인 경우 Null 포함 열은 지정된 기본값으로 대상에 삽입됩니다. 빠른 로드를 사용하는 경우에만 적용됩니다."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="빠른 로드와 함께 사용할 옵션을 지정합니다. 빠른 로드를 사용하는 경우에만 적용됩니다."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="데이터 삽입 도중 커밋이 수행되는 시점을 지정합니다. 값을 0으로 지정하면 데이터 삽입 완료 시에 커밋이 한 번 수행됩니다. 빠른 로드를 사용하는 경우에만 적용됩니다."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[DestinationConnectionOLEDB]"
+                  description="데이터베이스에 액세스하는 데 사용되는 OLE DB 런타임 연결입니다."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input]"
+                  errorOrTruncationOperation="삽입"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[최초입력자]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="최초입력자"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[최초입력자]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[최초입력자]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[SMS수신여부]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="SMS수신여부"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[SMS수신여부]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[SMS수신여부]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[이메일수신여부]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="이메일수신여부"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[이메일수신여부]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[이메일수신여부]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[최초입력일]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="최초입력일"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[최초입력일]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[최초입력일]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[성명]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="성명"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[성명]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[성명]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[회원번호]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="회원번호"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[회원번호]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[회원번호]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[휴대전화번호]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="휴대전화번호"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[휴대전화번호]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[휴대전화번호]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[이메일]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="이메일"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[이메일]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[이메일]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[CARD명의자]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CARD명의자"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[CARD명의자]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[CARD명의자]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[집우편번호]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="집우편번호"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[집우편번호]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[집우편번호]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[CARD명의자휴대폰번호]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CARD명의자휴대폰번호"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[CARD명의자휴대폰번호]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[CARD명의자휴대폰번호]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[집주소]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="집주소"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[집주소]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[집주소]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[증빙자료등록여부]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="증빙자료등록여부"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[증빙자료등록여부]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[증빙자료등록여부]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[집주소상세]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="집주소상세"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[집주소상세]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[집주소상세]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[증빙자료등록필요]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="증빙자료등록필요"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[증빙자료등록필요]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[증빙자료등록필요]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[직장우편번호]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="직장우편번호"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[직장우편번호]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[직장우편번호]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[증빙자료방법]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="증빙자료방법"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[증빙자료방법]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[증빙자료방법]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[직장주소]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="직장주소"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[직장주소]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[직장주소]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[직장주소상세]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="직장주소상세"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[직장주소상세]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[직장주소상세]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[우편물수신처]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="우편물수신처"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[우편물수신처]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[우편물수신처]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[가입경로상세]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="가입경로상세"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[가입경로상세]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[가입경로상세]" />
+                    <inputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].Columns[지부]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="지부"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[지부]"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[지부]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[최초입력자]"
+                      dataType="wstr"
+                      length="255"
+                      name="최초입력자" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[SMS수신여부]"
+                      dataType="wstr"
+                      length="255"
+                      name="SMS수신여부" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[이메일수신여부]"
+                      dataType="wstr"
+                      length="255"
+                      name="이메일수신여부" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[최초입력일]"
+                      dataType="wstr"
+                      length="255"
+                      name="최초입력일" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[성명]"
+                      dataType="wstr"
+                      length="255"
+                      name="성명" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[회원번호]"
+                      dataType="wstr"
+                      length="255"
+                      name="회원번호" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[휴대전화번호]"
+                      dataType="wstr"
+                      length="255"
+                      name="휴대전화번호" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[이메일]"
+                      dataType="wstr"
+                      length="255"
+                      name="이메일" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[집우편번호]"
+                      dataType="wstr"
+                      length="255"
+                      name="집우편번호" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[집주소]"
+                      dataType="wstr"
+                      length="255"
+                      name="집주소" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[집주소상세]"
+                      dataType="wstr"
+                      length="255"
+                      name="집주소상세" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[직장우편번호]"
+                      dataType="wstr"
+                      length="255"
+                      name="직장우편번호" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[직장주소]"
+                      dataType="wstr"
+                      length="255"
+                      name="직장주소" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[직장주소상세]"
+                      dataType="wstr"
+                      length="255"
+                      name="직장주소상세" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[우편물수신처]"
+                      dataType="wstr"
+                      length="255"
+                      name="우편물수신처" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[가입경로상세]"
+                      dataType="wstr"
+                      length="255"
+                      name="가입경로상세" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[지부]"
+                      dataType="wstr"
+                      length="255"
+                      name="지부" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[증빙자료등록필요]"
+                      dataType="wstr"
+                      length="255"
+                      name="증빙자료등록필요" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[증빙자료등록여부]"
+                      dataType="wstr"
+                      length="255"
+                      name="증빙자료등록여부" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[증빙자료방법]"
+                      dataType="wstr"
+                      length="255"
+                      name="증빙자료방법" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[CARD명의자]"
+                      dataType="wstr"
+                      length="255"
+                      name="CARD명의자" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input].ExternalColumns[CARD명의자휴대폰번호]"
+                      dataType="wstr"
+                      length="255"
+                      name="CARD명의자휴대폰번호" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Outputs[OLE DB 대상 오류 출력]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB 대상 오류 출력"
+                  synchronousInputId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Outputs[OLE DB 대상 오류 출력].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Outputs[OLE DB 대상 오류 출력].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Outputs[OLE DB 대상 오류 출력].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Outputs[OLE DB 대상 오류 출력].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\데이터 흐름 태스크 1\원본 - Sheet$"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel 원본;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All rights reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel 원본"
+              name="원본 - Sheet$"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="명령이 종료되기 전의 제한 시간 값(초)입니다. 값 0은 제한 시간이 없음을 나타냅니다."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="행 집합을 여는 데 사용되는 데이터베이스 개체의 이름을 지정합니다."
+                  name="OpenRowset">Sheet$</property>
+                <property
+                  dataType="System.String"
+                  description="행 집합을 여는 데 사용되는 데이터베이스 개체의 이름이 들어 있는 변수를 지정합니다."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="실행할 SQL 명령입니다."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="실행할 SQL 명령이 들어 있는 변수입니다."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="데이터베이스에 액세스하는 데 사용되는 모드를 지정합니다."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="SQL 명령의 매개 변수에서 변수로의 매핑입니다."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SourceConnectionExcel]"
+                  connectionManagerRefId="Package.ConnectionManagers[SourceConnectionExcel]"
+                  description="데이터베이스에 액세스하는 데 사용되는 OLE DB 런타임 연결입니다."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력]"
+                  name="Excel 원본 출력">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[최초입력자]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[최초입력자]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[최초입력자]"
+                      name="최초입력자"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[SMS수신여부]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[SMS수신여부]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[SMS수신여부]"
+                      name="SMS수신여부"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[이메일수신여부]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[이메일수신여부]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[이메일수신여부]"
+                      name="이메일수신여부"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[최초입력일]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[최초입력일]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[최초입력일]"
+                      name="최초입력일"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[성명]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[성명]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[성명]"
+                      name="성명"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[회원번호]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[회원번호]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[회원번호]"
+                      name="회원번호"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[휴대전화번호]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[휴대전화번호]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[휴대전화번호]"
+                      name="휴대전화번호"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[이메일]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[이메일]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[이메일]"
+                      name="이메일"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[CARD명의자]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[CARD명의자]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[CARD명의자]"
+                      name="CARD명의자"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[집우편번호]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[집우편번호]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[집우편번호]"
+                      name="집우편번호"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[CARD명의자휴대폰번호]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[CARD명의자휴대폰번호]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[CARD명의자휴대폰번호]"
+                      name="CARD명의자휴대폰번호"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[집주소]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[집주소]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[집주소]"
+                      name="집주소"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[증빙자료등록여부]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[증빙자료등록여부]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[증빙자료등록여부]"
+                      name="증빙자료등록여부"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[집주소상세]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[집주소상세]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[집주소상세]"
+                      name="집주소상세"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[증빙자료등록필요]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[증빙자료등록필요]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[증빙자료등록필요]"
+                      name="증빙자료등록필요"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[직장우편번호]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[직장우편번호]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[직장우편번호]"
+                      name="직장우편번호"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[증빙자료방법]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[증빙자료방법]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[증빙자료방법]"
+                      name="증빙자료방법"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[직장주소]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[직장주소]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[직장주소]"
+                      name="직장주소"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[직장주소상세]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[직장주소상세]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[직장주소상세]"
+                      name="직장주소상세"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[우편물수신처]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[우편물수신처]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[우편물수신처]"
+                      name="우편물수신처"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[가입경로상세]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[가입경로상세]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[가입경로상세]"
+                      name="가입경로상세"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[지부]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="변환"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[지부]"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].Columns[지부]"
+                      name="지부"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[최초입력자]"
+                      dataType="wstr"
+                      length="255"
+                      name="최초입력자" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[SMS수신여부]"
+                      dataType="wstr"
+                      length="255"
+                      name="SMS수신여부" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[이메일수신여부]"
+                      dataType="wstr"
+                      length="255"
+                      name="이메일수신여부" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[최초입력일]"
+                      dataType="wstr"
+                      length="255"
+                      name="최초입력일" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[성명]"
+                      dataType="wstr"
+                      length="255"
+                      name="성명" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[회원번호]"
+                      dataType="wstr"
+                      length="255"
+                      name="회원번호" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[휴대전화번호]"
+                      dataType="wstr"
+                      length="255"
+                      name="휴대전화번호" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[이메일]"
+                      dataType="wstr"
+                      length="255"
+                      name="이메일" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[CARD명의자]"
+                      dataType="wstr"
+                      length="255"
+                      name="CARD명의자" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[집우편번호]"
+                      dataType="wstr"
+                      length="255"
+                      name="집우편번호" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[CARD명의자휴대폰번호]"
+                      dataType="wstr"
+                      length="255"
+                      name="CARD명의자휴대폰번호" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[집주소]"
+                      dataType="wstr"
+                      length="255"
+                      name="집주소" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[증빙자료등록여부]"
+                      dataType="wstr"
+                      length="255"
+                      name="증빙자료등록여부" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[집주소상세]"
+                      dataType="wstr"
+                      length="255"
+                      name="집주소상세" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[증빙자료등록필요]"
+                      dataType="wstr"
+                      length="255"
+                      name="증빙자료등록필요" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[직장우편번호]"
+                      dataType="wstr"
+                      length="255"
+                      name="직장우편번호" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[증빙자료방법]"
+                      dataType="wstr"
+                      length="255"
+                      name="증빙자료방법" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[직장주소]"
+                      dataType="wstr"
+                      length="255"
+                      name="직장주소" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[직장주소상세]"
+                      dataType="wstr"
+                      length="255"
+                      name="직장주소상세" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[우편물수신처]"
+                      dataType="wstr"
+                      length="255"
+                      name="우편물수신처" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[가입경로상세]"
+                      dataType="wstr"
+                      length="255"
+                      name="가입경로상세" />
+                    <externalMetadataColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력].ExternalColumns[지부]"
+                      dataType="wstr"
+                      length="255"
+                      name="지부" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력]"
+                  isErrorOut="true"
+                  name="Excel 원본 오류 출력">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[최초입력자]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[최초입력자]"
+                      name="최초입력자" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[SMS수신여부]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[SMS수신여부]"
+                      name="SMS수신여부" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[이메일수신여부]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[이메일수신여부]"
+                      name="이메일수신여부" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[최초입력일]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[최초입력일]"
+                      name="최초입력일" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[성명]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[성명]"
+                      name="성명" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[회원번호]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[회원번호]"
+                      name="회원번호" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[휴대전화번호]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[휴대전화번호]"
+                      name="휴대전화번호" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[이메일]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[이메일]"
+                      name="이메일" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[CARD명의자]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[CARD명의자]"
+                      name="CARD명의자" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[집우편번호]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[집우편번호]"
+                      name="집우편번호" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[CARD명의자휴대폰번호]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[CARD명의자휴대폰번호]"
+                      name="CARD명의자휴대폰번호" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[집주소]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[집주소]"
+                      name="집주소" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[증빙자료등록여부]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[증빙자료등록여부]"
+                      name="증빙자료등록여부" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[집주소상세]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[집주소상세]"
+                      name="집주소상세" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[증빙자료등록필요]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[증빙자료등록필요]"
+                      name="증빙자료등록필요" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[직장우편번호]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[직장우편번호]"
+                      name="직장우편번호" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[증빙자료방법]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[증빙자료방법]"
+                      name="증빙자료방법" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[직장주소]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[직장주소]"
+                      name="직장주소" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[직장주소상세]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[직장주소상세]"
+                      name="직장주소상세" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[우편물수신처]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[우편물수신처]"
+                      name="우편물수신처" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[가입경로상세]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[가입경로상세]"
+                      name="가입경로상세" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[지부]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[지부]"
+                      name="지부" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 오류 출력].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\데이터 흐름 태스크 1.Paths[Excel 원본 출력]"
+              endId="Package\데이터 흐름 태스크 1\대상 - db0_clnt_i.Inputs[Destination Input]"
+              name="Excel 원본 출력"
+              startId="Package\데이터 흐름 태스크 1\원본 - Sheet$.Outputs[Excel 원본 출력]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[{D15CCA5A-DBAC-4B71-B799-89BE31FFFB13\}]"
+      DTS:CreationName=""
+      DTS:DTSID="{D15CCA5A-DBAC-4B71-B799-89BE31FFFB13}"
+      DTS:From="Package\SQL 태스크 1 준비"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="{D15CCA5A-DBAC-4B71-B799-89BE31FFFB13}"
+      DTS:To="Package\데이터 흐름 태스크 1" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

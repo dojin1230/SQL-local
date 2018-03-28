@@ -1,0 +1,14 @@
+USE [master]
+GO
+
+CREATE LOGIN [Terence] WITH PASSWORD=N'Terence', DEFAULT_DATABASE=[report], CHECK_EXPIRATION=OFF, CHECK_POLICY=ON
+GO
+
+USE [report]
+GO
+CREATE USER [Terence] FOR LOGIN [Terence]
+GO
+USE [report]
+GO
+ALTER ROLE [db_datareader] ADD MEMBER [Terence]
+GO
